@@ -29,6 +29,6 @@ export const getPersonalityInside = content => {
 
   return personality.profile(params)
     .then(getTextSummary)
-    .catch(error  =>console.log(error))
+    .catch(error => error)
 }
 

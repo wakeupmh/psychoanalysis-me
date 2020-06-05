@@ -1,14 +1,15 @@
 
-import dotenv from 'dotenv'
-import PersonalityInsightsV3 from 'watson-developer-cloud/personality-insights/v3'
-import PersonalityTextSummaries from 'personality-text-summary'
+const PersonalityInsightsV3 = require('ibm-watson/personality-insights/v3')
+const { IamAuthenticator } = require('ibm-watson/auth')
+const PersonalityTextSummaries = require('personality-text-summary')
 
-dotenv.config()
 
 const personality = new PersonalityInsightsV3({
-  username: process.env.PERSONALITY_INSIGHTS_USERNAME,
-  password: process.env.PERSONALITY_INSIGHTS_PASSWORD,
-  version_date: process.env.PERSONALITY_INSIGHTS_VERSION_DATE
+  authenticator: new IamAuthenticator({
+    apikey: process.env.PERSONALITY_INSIGHTS_IAM_APIKEY,
+  }),
+  url: process.env.PERSONALITY_INSIGHTS_URL,
+  version: '2019-10-13'
 });
 
 const v3EnglishTextSummaries =  new  PersonalityTextSummaries({
@@ -19,16 +20,20 @@ const v3EnglishTextSummaries =  new  PersonalityTextSummaries({
 const  getTextSummary = personalityProfile  => 
   v3EnglishTextSummaries.getSummary(personalityProfile)
 
-export const getPersonalityInside = content => {
-  const params = {
-    content,
-    content_type:  'text/plain',
-    raw_scores:  true,
-    consumption_preferences:  true
+const getPersonalityInside = text => {
+  const params = { 
+    content: {
+    contentItems: [{
+        content: text,
+        contenttype: "text/plain",
+        id: `${Math.random() * 100}`,
+        language: "en"
+      }]
+    }
   }
-
   return personality.profile(params)
-    .then(getTextSummary)
+    .then(response => getTextSummary(response.result))
     .catch(error => error)
 }
 
+module.exports = { getPersonalityInside }

@@ -1,7 +1,7 @@
 
-const PersonalityInsightsV3 = require('ibm-watson/personality-insights/v3')
-const { IamAuthenticator } = require('ibm-watson/auth')
-const PersonalityTextSummaries = require('personality-text-summary')
+import PersonalityInsightsV3 from 'ibm-watson/personality-insights/v3'
+import { IamAuthenticator } from 'ibm-watson/auth'
+import PersonalityTextSummaries from 'personality-text-summary'
 
 
 const personality = new PersonalityInsightsV3({
@@ -36,4 +36,4 @@ const getPersonalityInside = text => {
     .catch(error => error)
 }
 
-module.exports = { getPersonalityInside }
+export { getPersonalityInside }

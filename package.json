@@ -2,7 +2,6 @@
   "dependencies": {
     "@now/node": "^1.6.1",
     "bluebird": "^3.7.2",
-    "dotenv": "^8.2.0",
     "ibm-watson": "^5.6.0",
     "personality-text-summary": "^2.2.0"
   }

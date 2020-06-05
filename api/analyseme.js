@@ -1,8 +1,7 @@
-require('dotenv').config()
-const { getPersonalityInside } = require('../personality/analyser')
-const Bluebird = require('bluebird')
+import { getPersonalityInside } from '../personality/analyser'
+import Bluebird from 'bluebird'
 
-module.exports = (req, res) => {
+export default (req, res) => {
   Bluebird.resolve(getPersonalityInside(req.body.text))
   .then(analyses => res.json({
     personality: analyses

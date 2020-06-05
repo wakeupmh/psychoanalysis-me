@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@now/node": "^1.6.1",
+    "dotenv": "^8.2.0",
+    "personality-text-summary": "^2.2.0",
+    "watson-developer-cloud": "^4.0.1"
+  }
+}
